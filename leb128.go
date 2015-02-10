@@ -6,6 +6,10 @@ import (
 	"io"
 )
 
+const (
+	errMaximumEncodingLengthExceeded = "Exceeded maximum of 5 bytes for a LEB128-encoded uint32."
+)
+
 //Decode reads a LEB128-encoded unsigned integer from the given io.Reader and returns it
 //as a uint32.
 func Decode(reader io.Reader) (uint32, error) {
@@ -22,7 +26,7 @@ func Decode(reader io.Reader) (uint32, error) {
 		}
 		shift += 7
 		if shift > (4 * 7) {
-			return 0, errors.New("Exceeded maximum of 5 bytes for a LEB128-encoded uint32.")
+			return 0, errors.New(errMaximumEncodingLengthExceeded)
 		}
 	}
 	return result, nil
