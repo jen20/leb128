@@ -20,7 +20,7 @@ func Decode(reader io.Reader) (uint32, error) {
 		if err := binary.Read(reader, binary.LittleEndian, &current); err != nil {
 			return 0, err
 		}
-		result |= uint32((current & 0x7F)) << shift
+		result |= uint32(current&0x7F) << shift
 		if (current & 0x80) == 0 {
 			break
 		}
